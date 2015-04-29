@@ -54,7 +54,7 @@ io.on('connection', function(socket){
         });
 
     	io.emit('chat message', data);
-    	console.log(data.name + ": " + data.message + "\n");
+    	process.stdout.write(data + "\n");
   	});
 
   	socket.on('disconnect', function() {

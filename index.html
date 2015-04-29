@@ -49,15 +49,16 @@
 
         socket.on('chat message', function(msg){
             var name = msg.name;
+            var message = msg.message;
             if (name === socket.name ){ 
-                $('#messages').append($('<li class=\"own\">').text("You" + ": " + msg.message));
+                $('#messages').append($('<li class=\"own\">').text("You" + ": " + message));
             }
             else {
                 if (names.indexOf(name) < 0) {
                     names[names.length] = name;
                 }
                 $('#names').text(names.join(", "));
-                $('#messages').append($('<li class=\"stranger\">').text(name + ": " + msg.message));
+                $('#messages').append($('<li class=\"stranger\">').text(name + ": " + message));
             }
         });
 
