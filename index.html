@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+    <title>Chatroom beta</title>
+    <link rel="shortcut icon" src="/1412963727_259281.ico">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font: 13px Helvetica, Arial; }
+        form { background: #000; padding-top: 3px; position: absolute; bottom: 0; width: 100%; display: inline-block; clear: both; }
+        form input { border: none; padding: 10px; width: 80%; margin-right: .5%; }
+        form button { width: 19.5%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+        .main { height: 500px; width: 350px; border: solid; margin: 3px; position: relative;  resize: vertical;}
+        .chat-header { border-bottom: solid; padding: 2px 5px; }
+        .messages { height: 425px; overflow: auto;}
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages li { padding: 5px 10px; margin: 10px; border-radius: 15px;}
+        #messages .own { background: rgb(130, 224, 255); text-align: right; margin-left: 40%;}
+        #messages .stranger { background: #ddd; text-align: left; margin-right: 40%;}
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="chat-header">
+            <h3>Chatroom</h3>
+            <p>Names: <span id="names"></span></p>
+        </div>
+        <div class="messages">
+            <ul id="messages"></ul>
+        </div>
+        <div class="message-input">
+            <form action="">
+                <input id="m" autocomplete="off" /><button>Send</button>
+            </form>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+        var socket = io();
+        var names = [];
+        socket.name = prompt("Please enter your name");
+        $('form').submit(function(){
+            if( $('#m').val() !== '' ){
+                socket.emit('chat message', {name: socket.name, message: $('#m').val() });
+                $('#m').val('');
+            }
+            return false;
+        });
+
+        socket.on('chat message', function(msg){
+            var name = msg.name;
+            if (name === socket.name ){ 
+                $('#messages').append($('<li class=\"own\">').text("You" + ": " + msg.message));
+            }
+            else {
+                if (names.indexOf(name) < 0) {
+                    names[names.length] = name;
+                }
+                $('#names').text(names.join(", "));
+                $('#messages').append($('<li class=\"stranger\">').text(name + ": " + msg.message));
+            }
+        });
+
+        socket.on('new-user-online', function(usr){
+            if (names.indexOf(usr) < 0) {
+                names[names.length] = usr;
+            }
+        });
+    </script>
+</body>
+</html>
