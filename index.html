@@ -11,7 +11,7 @@
         form button { width: 19.5%; background: rgb(130, 224, 255); border: none; padding: 10px; }
         .main { height: 500px; width: 350px; border: solid; margin: 3px; position: relative;  resize: vertical;}
         .chat-header { border-bottom: solid; padding: 2px 5px; }
-        .messages { height: 425px; overflow: auto;}
+        #message-list { height: 420px; overflow: auto;}
         #messages { list-style-type: none; margin: 0; padding: 0; }
         #messages li { padding: 5px 10px; margin: 10px; border-radius: 15px;}
         #messages .own { background: rgb(130, 224, 255); text-align: right; margin-left: 40%;}
@@ -24,7 +24,7 @@
             <h3>Chatroom</h3>
             <p>Names: <span id="names"></span></p>
         </div>
-        <div class="messages">
+        <div id="message-list">
             <ul id="messages"></ul>
         </div>
         <div class="message-input">
@@ -60,6 +60,8 @@
                 $('#names').text(names.join(", "));
                 $('#messages').append($('<li class=\"stranger\">').text(name + ": " + message));
             }
+            var elem = document.getElementById('message-list');
+            elem.scrollTop = elem.scrollHeight;
         });
 
         socket.on('new-user-online', function(usr){
