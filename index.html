@@ -59,9 +59,14 @@
                 }
                 $('#names').text(names.join(", "));
                 $('#messages').append($('<li class=\"stranger\">').text(name + ": " + message));
+                document.title = "New message from " + name;
             }
             var elem = document.getElementById('message-list');
             elem.scrollTop = elem.scrollHeight;
+        });
+
+        $(this).mousemove(function(e){
+            document.title = "Chatroom beta";
         });
 
         socket.on('new-user-online', function(usr){
