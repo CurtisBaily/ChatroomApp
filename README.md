@@ -1,2 +1,3 @@
-# ChatroomApp - Beta
-Node.js application to serve as a chatroom.
+# ChatroomApp
+
+A chatroom application build using Node.js
