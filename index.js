@@ -8,7 +8,7 @@ var port = 8000;
 var clients = [];
 
 app.get('/', function(req, res){
-	res.sendfile('./index.html');
+	res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/1412963727_259281.ico', function(req, res){
