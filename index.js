@@ -1,20 +1,22 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var path = require('path');
 var mongo = require('mongodb').MongoClient;
-var port = 8000;
+var port = process.env.PORT || 8000;
 
 var clients = [];
 
-app.get('/', function(req, res){
-	res.sendFile(__dirname + '/index.html');
-});
+app.use(express.static(__dirname + '/public'));
 
-app.get('/1412963727_259281.ico', function(req, res){
-	res.sendfile('./1412963727_259281.ico');
-});
+//app.get('/', function(req, res){
+	// res.sendfile('index.html');
+// });
 
+// app.get('/1412963727_259281.ico', function(req, res){
+	// res.sendfile('/1412963727_259281.ico');
+// });
 
 io.on('connection', function(socket){
 	console.log('user connected');
