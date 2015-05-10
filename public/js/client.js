@@ -1,5 +1,7 @@
 var socket = io();
 var names = [];
+var title = "Chatroom beta";
+
 socket.name = prompt("Please enter your name");
 $('form').submit(function(){
     if( $('#m').val() !== '' ){
@@ -16,7 +18,7 @@ socket.on('chat message', function(msg){
         $('#messages').append($('<li class=\"own\">').text("You" + ": " + message));
     }
     else {
-        if (names.indexOf(name) < 0) {
+        if (names.indexOf(name) < 0 && name !== "System") {
             names[names.length] = name;
         }
         $('#names').text(names.join(", "));
@@ -28,7 +30,7 @@ socket.on('chat message', function(msg){
 });
 
 $(this).mousemove(function(e){
-    document.title = "Chatroom beta";
+    document.title = title;
 });
 
 socket.on('new-user-online', function(usr){
