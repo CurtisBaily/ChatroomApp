@@ -21,6 +21,7 @@ app.use(express.static(__dirname + '/public'));
 io.on('connection', function(socket){
 	console.log('user connected');
 	clients.push(socket);
+	socket.emit('chat message', { name: "System", message: "Welcome to the chatroom."});
 
 	mongo.connect('mongodb://localhost/chatroom', function (err, db) {
 		if(err){
