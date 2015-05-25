@@ -8,3 +8,8 @@ This application requires an installation of MongoDB Server installation. It can
 1. Download by cloning using `git clone https://github.com/CurtisBaily/ChatroomApp.git` or as a zip file.
 
 2. Use `npm install` within the project folder to install the package dependencies.
+
+###Running
+1. Within the project folder from the command line use `node index.js`.
+
+2. Open a web browser which can run JavaScript (developed on Chrome) and go to `http://localhost:8000`. The default port number is 8000.
