@@ -5,7 +5,7 @@ var title = "Chatroom beta";
 socket.name = prompt("Please enter your name");
 $('form').submit(function(){
     if( $('#m').val() !== '' ){
-        socket.emit('chat message', {name: socket.name, message: $('#m').val() });
+        socket.emit('chat message', {name: socket.name, message: $('#m').val() , time: new Date()});
         $('#m').val('');
     }
     return false;

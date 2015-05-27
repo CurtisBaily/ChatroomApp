@@ -46,11 +46,11 @@ io.on('connection', function(socket){
 				var now = new Date();
 				var messages = 'chat-messages-' + now.getFullYear() + now.getMonth() + now.getDate();
 				var collection = db.collection(messages);
-				collection.insert({ name: data.name, message: data.message }, function (err, o) {
+				collection.insert({ name: data.name, message: data.message, time: data.time }, function (err, o) {
 					if (err) {
 						console.warn(err.message);
 					} else {
-						console.log("chat message inserted into db - collection: " + messages + ": " + data.name + ": " + data.message);
+						console.log("chat message inserted into db - collection: " + messages + ": " + data.name + ": " + data.message + " - " + data.time);
 					}
 				});
 			}
