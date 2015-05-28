@@ -1,6 +1,7 @@
 var socket = io();
 var names = [];
 var title = "Chatroom beta";
+var unReadCount = 0;
 
 socket.name = prompt("Please enter your name");
 $('form').submit(function(){
@@ -23,7 +24,7 @@ socket.on('chat message', function(msg){
         }
         $('#names').text(names.join(", "));
         $('#messages').append($('<li class=\"stranger\">').text(name + ": " + message));
-        document.title = "New message from " + name;
+        document.title = "(" + ++unReadCount + ") New message from " + name;
     }
     var elem = document.getElementById('message-list');
     elem.scrollTop = elem.scrollHeight;
@@ -31,6 +32,7 @@ socket.on('chat message', function(msg){
 
 $(this).mousemove(function(e){
     document.title = title;
+    unReadCount = 0;
 });
 
 socket.on('new-user-online', function(usr){
